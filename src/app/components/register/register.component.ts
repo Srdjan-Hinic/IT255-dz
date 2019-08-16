@@ -32,12 +32,14 @@ export class RegisterComponent implements OnInit {
     .set('firstName', this.registerForm.value.firstName)
     .set('lastName', this.registerForm.value.lastName);
 
-    this._api.post('registerservice.php', body.toString()).subscribe((data: any) => {
+    this._api.post('registerUser.php', body.toString()).subscribe((data: any) => {
       console.log(data)
       localStorage.setItem('token', JSON.parse(data['_body']).token);
       this._router.navigate(['./']);
     }, (error) => {
+      console.log(error);
       const obj = JSON.parse(error['_body']).error;
+      
       const element  = <HTMLElement> document.getElementsByClassName('alert')[0];
       element.style.display = 'block';
       element.innerHTML = obj.split('\\r\\n').join('<br/>').split('\"').join('');

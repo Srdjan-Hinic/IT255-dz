@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ApiService } from './services/api.service';
 
 @NgModule({
   declarations: [
@@ -18,13 +19,14 @@ import { RegisterComponent } from './components/register/register.component';
     RegisterComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

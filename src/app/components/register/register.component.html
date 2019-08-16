@@ -1,22 +1,20 @@
-<form role="form" [formGroup]="registerForm">
-    <div class="alert alert-danger" style="display: none;">
-
-    </div>
-   <div class="form-group">
-      <label for="firstName">First name:</label>
-      <input type="text" class="form-control" formControlName='firstName'>
-    </div>
-     <div class="form-group">
-      <label for="lastName">Last name:</label>
-      <input type="text" class="form-control"  formControlName='lastName'>
+<form role="form" class="container" [formGroup]="registerForm">
+    <div class="alert alert-danger" style="display: none;"></div>
+    <div class="form-group">
+        <label for="firstName">First name:</label>
+        <input type="text" class="form-control" formControlName='firstName'>
     </div>
     <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" class="form-control"  formControlName='username'>
+        <label for="lastName">Last name:</label>
+        <input type="text" class="form-control" formControlName='lastName'>
     </div>
     <div class="form-group">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" formControlName='password'>
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" formControlName='username'>
+    </div>
+    <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" formControlName='password'>
     </div>
     <button (click)="register()" class="btn btn-primary">Register</button>
-  </form>
+</form>
