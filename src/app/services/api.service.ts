@@ -11,7 +11,7 @@ export class ApiService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Token': !!localStorage.getItem('token') ? localStorage.getItem('token') : null
+      'Token': !!localStorage.getItem('token') ? localStorage.getItem('token') : ''
     })
   };
 

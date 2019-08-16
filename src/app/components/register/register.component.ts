@@ -14,7 +14,8 @@ export class RegisterComponent implements OnInit {
     username: new FormControl(),
     password: new FormControl(),
     firstName: new FormControl(),
-    lastName: new FormControl()
+    lastName: new FormControl(),
+    email: new FormControl()
   });
 
   constructor(private _api: ApiService, private _router: Router) { }
@@ -27,22 +28,21 @@ export class RegisterComponent implements OnInit {
 
   public register() {
     const body = new HttpParams()
-    .set('username', this.registerForm.value.username)
-    .set('password', this.registerForm.value.password)
-    .set('firstName', this.registerForm.value.firstName)
-    .set('lastName', this.registerForm.value.lastName);
-
+      .set('username', this.registerForm.value.username)
+      .set('password', this.registerForm.value.password)
+      .set('firstName', this.registerForm.value.firstName)
+      .set('lastName', this.registerForm.value.lastName)
+      .set('email', this.registerForm.value.email);
     this._api.post('registerUser.php', body.toString()).subscribe((data: any) => {
-      console.log(data)
-      localStorage.setItem('token', JSON.parse(data['_body']).token);
-      this._router.navigate(['./']);
+      console.log(data);
+      // localStorage.setItem('token', JSON.parse(data['_body']).token);
+      // this._router.navigate(['./']);
     }, (error) => {
-      console.log(error);
-      const obj = JSON.parse(error['_body']).error;
-      
-      const element  = <HTMLElement> document.getElementsByClassName('alert')[0];
-      element.style.display = 'block';
-      element.innerHTML = obj.split('\\r\\n').join('<br/>').split('\"').join('');
+      // const obj = JSON.parse(error['_body']).error;
+
+      // const element  = <HTMLElement> document.getElementsByClassName('alert')[0];
+      // element.style.display = 'block';
+      // element.innerHTML = obj.split('\\r\\n').join('<br/>').split('\"').join('');
     });
   }
 
