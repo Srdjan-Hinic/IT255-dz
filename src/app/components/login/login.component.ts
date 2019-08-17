@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 
 import { ApiService } from '../../services/api.service';
+import { AuthService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl()
   });
 
-  constructor(private _api: ApiService, private _router: Router) { }
+  constructor(private _api: ApiService, private _router: Router, private _auth: AuthService) { }
 
   ngOnInit() {
     if (localStorage.getItem('token')) {
@@ -31,11 +32,11 @@ export class LoginComponent implements OnInit {
       .set('username', this.loginForm.value.username)
       .set('password', this.loginForm.value.password)
     this._api.post('loginUser.php', body.toString()).subscribe((data: any) => {
-      console.log(JSON.parse(data.admin));
       localStorage.setItem('token', data.token);
       !!data.admin ? localStorage.setItem('admin', data.admin) : '';
+      this._auth.setAdmin(true);
+      this._auth.setAuth(true);
       this._router.navigate(['']);
-      location.reload();
     }, (error) => {
       const obj = error.error.error;
       const element = <HTMLElement>document.getElementsByClassName('alert')[0];

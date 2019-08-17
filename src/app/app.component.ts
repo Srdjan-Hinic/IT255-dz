@@ -13,9 +13,9 @@ export class AppComponent {
   constructor(private _router: Router, private _authService: AuthService) {}
 
   logout() {
-    !!localStorage.getItem('admin') ? localStorage.removeItem('admin') : '';
     !!localStorage.getItem('token') ? localStorage.removeItem('token') : '';
     this._authService.setAuth(false);
+    this._authService.setAdmin(false);
     this._router.navigateByUrl('home');
   }
 }

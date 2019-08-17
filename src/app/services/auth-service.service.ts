@@ -1,33 +1,32 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthService implements OnInit {
 
-  private isAuth: boolean;
-  private $isAdmin: Subject<boolean> = new Subject;
-  private isAdmin: Observable<boolean>;
+  private $isAuth: Subject<Boolean> = new Subject();
+  private $isAdmin: Subject<Boolean> = new Subject();
+  isAdmin: Observable<Boolean> = this.$isAdmin.asObservable();
+  isAuth: Observable<Boolean> = this.$isAuth.asObservable();
 
   constructor() {
-    this.isAuth = this.isAuthenticated();
-    this.isAdmin = this.$isAdmin.next(this.isAdministrator());
-    
+    this.$isAuth.next(this.isAuthenticated());
+    this.$isAdmin.next(this.isAdministrator());
   }
 
   ngOnInit() {
-
   }
 
   public isAuthenticated(): boolean {
 
     const token = localStorage.getItem('token');
     if (token != null) {
-      this.isAuth = true;
+      this.$isAuth.next(true);
       return true;
     }
     else {
-      this.isAuth = false;
+      this.$isAuth.next(false);
       return false;
     }
   }
@@ -35,10 +34,10 @@ export class AuthService implements OnInit {
   public isAdministrator(): boolean {
     const admin = localStorage.getItem('admin');
     if (admin != null) {
-      this.isAdmin = true;
+      this.$isAdmin.next(true);
       return true;
     }
-    this.isAdmin = false;
+    this.$isAdmin.next(false);
     return false;
   }
 
@@ -47,12 +46,12 @@ export class AuthService implements OnInit {
   }
 
   public setAuth(auth: boolean) {
-    this.isAuth = auth;
+    this.$isAuth.next(auth);
   }
 
-  public getAdmin() {
-    return this.isAdmin;
+  public setAdmin(value:boolean){
+    !value ?(!!localStorage.getItem('admin') ? localStorage.removeItem('admin') : '') : '';
+    this.$isAdmin.next(value);
   }
-  
 
 }
