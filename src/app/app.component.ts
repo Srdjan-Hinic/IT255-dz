@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
-import { NestoComponent } from './nesto.component';
+import { Router, RouterLink } from '@angular/router';
+
+import { AuthService} from "./services/auth-service.service";
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'met-hotels';
-  niz = [
-    new NestoComponent(1, "Marko"),
-    new NestoComponent(2, "Srdjan"),
-    new NestoComponent(3, "Stefan")
-  ]
+  
+  constructor(private _router: Router, private _authService: AuthService) {}
+
+  logout() {
+    !!localStorage.getItem('admin') ? localStorage.removeItem('admin') : '';
+    !!localStorage.getItem('token') ? localStorage.removeItem('token') : '';
+    this._authService.setAuth(false);
+    this._router.navigateByUrl('home');
+  }
 }

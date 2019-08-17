@@ -1,6 +1,8 @@
 <header>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light container">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
       aria-label="Toggle navigation">
@@ -9,24 +11,27 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home
+          <a class="nav-link" routerLink="/home">Home
             <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+        <li class="nav-item" *ngIf="!this._authService.getAuth()">
+          <a class="nav-link" routerLink="/login">Log In</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+        <li class="nav-item" *ngIf="!this._authService.getAuth()">
+          <a class="nav-link" routerLink="/register">Register </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+        <li class="nav-item"*ngIf="this._authService.getAuth()">
+          <a class="nav-link" routerLink="/logout" (click)="logout()">Log Out</a>
+        </li>
+        <li class="nav-item" *ngIf="this._authService.getAdmin()">
+          <a class="nav-link">YER AN ADMIN HARRY</a>
         </li>
       </ul>
     </div>
   </nav>
 </header>
-
-<router-outlet></router-outlet>
-
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
 <footer></footer>

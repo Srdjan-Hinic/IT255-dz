@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('token')) {
-      this._router.navigateByUrl('/home');
+      this._router.navigateByUrl('home');
     }
   }
 
@@ -35,14 +36,14 @@ export class RegisterComponent implements OnInit {
       .set('email', this.registerForm.value.email);
     this._api.post('registerUser.php', body.toString()).subscribe((data: any) => {
       console.log(data);
-      // localStorage.setItem('token', JSON.parse(data['_body']).token);
-      // this._router.navigate(['./']);
+      localStorage.setItem('token',data.token);
+      this._router.navigate(['']);
     }, (error) => {
-      // const obj = JSON.parse(error['_body']).error;
+      const obj = error.error.error;
 
-      // const element  = <HTMLElement> document.getElementsByClassName('alert')[0];
-      // element.style.display = 'block';
-      // element.innerHTML = obj.split('\\r\\n').join('<br/>').split('\"').join('');
+      const element  = <HTMLElement> document.getElementsByClassName('alert')[0];
+      element.style.display = 'block';
+      element.innerHTML = obj.split('\\r\\n').join('<br/>').split('\"').join('');
     });
   }
 
