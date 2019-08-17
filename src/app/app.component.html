@@ -21,11 +21,11 @@
         <li class="nav-item" *ngIf="!(this._authService.getAuth() | async)">
           <a class="nav-link" routerLink="/register">Register </a>
         </li>
-        <li class="nav-item"*ngIf="this._authService.getAuth() | async">
+        <li class="nav-item" *ngIf="this._authService.getAuth() | async">
           <a class="nav-link" routerLink="/logout" (click)="logout()">Log Out</a>
         </li>
         <li class="nav-item" *ngIf="(this._authService.isAdmin | async)">
-          <a class="nav-link">YER AN ADMIN HARRY {{this._authService.isAdmin | async}}</a>         
+          <a class="nav-link">YER AN ADMIN HARRY</a>
         </li>
       </ul>
     </div>
@@ -34,4 +34,6 @@
 <div class="container">
   <router-outlet></router-outlet>
 </div>
-<footer></footer>
+<footer>
+
+</footer>
