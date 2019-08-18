@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class AuthService implements OnInit {
@@ -11,11 +11,12 @@ export class AuthService implements OnInit {
   isAuth: Observable<Boolean> = this.$isAuth.asObservable();
 
   constructor() {
-    this.$isAuth.next(this.isAuthenticated());
-    this.$isAdmin.next(this.isAdministrator());
+  
   }
 
   ngOnInit() {
+    this.$isAuth.next(this.isAuthenticated());
+    this.$isAdmin.next(this.isAdministrator());
   }
 
   public isAuthenticated(): boolean {

@@ -1,0 +1,19 @@
+<form class="container " role="form" [formGroup]="addRoomForm">
+    <div class="alert alert-danger" style="display: none;">
+    </div>
+
+    <div class="form-group">
+        <label for="roomsize">Room size:</label>
+        <input type="number" class="form-control" formControlName='roomSize'>
+    </div>
+    <div class="form-group">
+        <label for="beds">Number of beds:</label>
+        <input type="number" class="form-control" formControlName='numOfBeds'>
+    </div>
+    <div class="form-group">
+        <label for="seaview">Sea view ?</label>
+        <input type="checkbox" class="form-control" formControlName='seaView'>
+    </div>
+
+    <button (click)="submitRoom()" class="btn btn-primary">Submit Room</button>
+</form>

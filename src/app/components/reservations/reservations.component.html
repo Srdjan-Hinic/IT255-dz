@@ -1,0 +1,28 @@
+<div class="col-md-2">
+    <div class="form-group">
+        <label>Size: </label>
+        <input class="form-control" type="text" [(ngModel)]="size" />
+    </div>
+    <div class="form-group">
+        <label>Beds: </label>
+        <input class="form-control" type="text" [(ngModel)]="beds" />
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Size</th>
+            <th scope="col">Beds</th>
+            <th scope="col">Sea View</th>
+            <th scope="col">Availability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let room of rooms | sizePipe:size | bedPipe:beds">
+            <td>{{room.size}}</td>
+            <td>{{room.beds}}</td>
+            <td>{{room.seaView}}</td>
+            <td>{{room.available}}</td>
+        </tr>
+    </tbody>
+</table>

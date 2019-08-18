@@ -11,13 +11,23 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth-service.service';
+import { ReservationsComponent } from './components/reservations/reservations.component';
+
+import { SizePipePipe } from './pipes/size-pipe.pipe';
+import { BedPipePipe } from './pipes/bed-pipe.pipe';
+import { AddRoomComponent } from './components/add-room/add-room.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    ReservationsComponent,
+    SizePipePipe,
+    BedPipePipe,
+    AddRoomComponent,
+    AddRoomComponent
   ],
   imports: [
     AppRoutingModule,
