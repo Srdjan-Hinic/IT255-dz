@@ -8,12 +8,12 @@ import { AddRoomComponent } from './components/add-room/add-room.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
-  { path: "**", component: HomeComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component : RegisterComponent},
   { path: "home", component : HomeComponent},
   { path: "reservations", component : ReservationsComponent},
-  { path: "addroom", component : AddRoomComponent}
+  { path: "addroom", component : AddRoomComponent},
+  { path: "**", component: HomeComponent },
 ];
 
 @NgModule({

@@ -10,12 +10,11 @@ import { AuthService } from "./services/auth-service.service";
 })
 export class AppComponent {
 
-  // ngOnInit() {
-  //   this._authService.isAuthenticated();
-  //   this._authService.isAdministrator();
-  // }
+  
   constructor(private _router: Router, private _authService: AuthService) {
+  }
 
+  ngOnInit() {
   }
 
   logout() {
