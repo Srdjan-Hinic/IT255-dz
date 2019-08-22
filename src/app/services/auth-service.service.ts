@@ -5,10 +5,10 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 @Injectable()
 export class AuthService implements OnInit {
 
-  private $isAuth: BehaviorSubject<Boolean> = new BehaviorSubject(false);
-  private $isAdmin: BehaviorSubject<Boolean> = new BehaviorSubject(false);
-  isAdmin: Observable<Boolean> = this.$isAdmin.asObservable();
-  isAuth: Observable<Boolean> = this.$isAuth.asObservable();
+  private $isAuth: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private $isAdmin: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isAdmin: Observable<boolean> = this.$isAdmin.asObservable();
+  isAuth: Observable<boolean> = this.$isAuth.asObservable();
 
   constructor() {
     this.$isAuth.next(this.isAuthenticated());
@@ -50,7 +50,7 @@ export class AuthService implements OnInit {
     this.$isAuth.next(auth);
   }
 
-  public setAdmin(value:boolean){
+  public setAdmin(value: boolean){
     !value ?(!!localStorage.getItem('admin') ? localStorage.removeItem('admin') : '') : '';
     this.$isAdmin.next(value);
   }

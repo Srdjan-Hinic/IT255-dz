@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth-service.service';
+import { ApiService } from 'src/app/services/api.service';
+import { Room } from 'src/app/models/room/room.component';
 
 @Component({
   selector: 'app-reservations',
@@ -7,26 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationsComponent implements OnInit {
 
-  size;
-  
-  private rooms = [
-    { size: 45, beds: 2, seaView: 0, available: "yes" },
-    { size: 35, beds: 3, seaView: 1 },
-    { size: 55, beds: 5, seaView: 1 },
-  ]
-  private filteredResults = [
-    { size: 45, beds: 2, seaView: 0, available: "yes" },
-    { size: 35, beds: 3, seaView: 1 },
-    { size: 55, beds: 5, seaView: 1 },
-  ]
-  
-  constructor() { }
+  rooms: any[];
+  private roomObj: Room[];
+
+  // tslint:disable-next-line: variable-name
+  constructor(private _auth: AuthService, private _apiService: ApiService) { }
 
   ngOnInit() {
+    this._apiService.get('getRoom.php').
+      subscribe((data: any) => {
+        this.rooms = data.rooms;
+      });
 
   }
-
-
-
-
 }

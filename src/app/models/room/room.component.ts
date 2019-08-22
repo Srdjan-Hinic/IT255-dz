@@ -1,5 +1,5 @@
 export class Room {
-  id: number;
+  beds: number;
   size: number;
   seaView: boolean;
 }

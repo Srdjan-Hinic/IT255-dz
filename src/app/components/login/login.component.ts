@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit {
       this._router.navigate(['']);
     }, (error) => {
       const obj = error.error.error;
-      const element = <HTMLElement>document.getElementsByClassName('alert')[0];
+      const element = document.getElementsByClassName('alert')[0] as HTMLElement;
       element.style.display = 'block';
       element.innerHTML = obj.split('\\r\\n').join('<br/>').split('\"').join('');
     });
   }
 
 
-} 
+}

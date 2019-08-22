@@ -22,15 +22,14 @@ export class AddRoomComponent implements OnInit {
   constructor(private _api: ApiService, private _router: Router, private _auth: AuthService) { }
 
   ngOnInit() {
-    if (this._auth.isAuth && this._auth.isAdmin) {}
-    else {
+    if (this._auth.isAuth && this._auth.isAdmin) { } else {
       this._router.navigateByUrl('home');
     }
   }
 
   submitRoom() {
 
-    if (this.addRoomForm.value.seaView == true) {
+    if (this.addRoomForm.value.seaView === true) {
       this.addRoomForm.value.seaView = 1;
     } else {
       this.addRoomForm.value.seaView = 0;
@@ -40,19 +39,19 @@ export class AddRoomComponent implements OnInit {
       .set('beds', this.addRoomForm.value.numOfBeds)
       .set('seaview', this.addRoomForm.value.seaView);
 
-      this._api.post('addRoom.php', body.toString()).subscribe((data: any) => {
-        const element  = <HTMLElement> document.getElementsByClassName('alert')[0];
-        element.style.display = 'block';
-        element.style.background = 'rgb(56, 207, 96)';
-        element.innerHTML = "Room added.";
-      }, (error) => {
-        const obj = error.error.error;
-        
-        const element  = <HTMLElement> document.getElementsByClassName('alert')[0];
-        element.style.display = 'block';
-        element.style.background = 'rgb(227, 68, 68)';
-        element.innerHTML = obj.split('\\r\\n').join('<br/>').split('\"').join('');
-      });
+    this._api.post('addRoom.php', body.toString()).subscribe((data: any) => {
+      const element = document.getElementsByClassName('alert')[0] as HTMLElement;
+      element.style.display = 'block';
+      element.style.background = 'rgb(56, 207, 96)';
+      element.innerHTML = 'Room added.';
+    }, (error) => {
+      const obj = error.error.error;
+
+      const element = document.getElementsByClassName('alert')[0] as HTMLElement;
+      element.style.display = 'block';
+      element.style.background = 'rgb(227, 68, 68)';
+      element.innerHTML = obj.split('\\r\\n').join('<br/>').split('\"').join('');
+    });
   }
 
 }
