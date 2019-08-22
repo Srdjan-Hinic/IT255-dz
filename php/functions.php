@@ -169,3 +169,54 @@ function checkIfEmailExists($email){
         return false;
     }
 }
+
+function addRoomFunc($size,$beds,$seaView) {
+    global $conn;
+    $rarray = array();
+    $errors = "";
+    
+    if (10 > $size) {
+        $errors .= "The room must be larger than 10\r\n";
+    }
+    if (1 > $beds) {
+        $errors .= "There must be at least 1 bed in the room!\r\n";
+    }
+ 
+    if ($errors == "") {
+        $stmt = $conn->prepare("INSERT INTO rooms (size,beds,sea_view) VALUES (?,?,?)");
+        $stmt->bind_param("iii",$size,$beds,$seaView);
+
+        if ($stmt->execute()) {
+        }else {
+            header('HTTP/1.1 400 Bad request');
+            $rarray['error'] = "Database connection error";
+        }
+    }else {
+        header('HTTP/1.1 400 Bad request');
+        $rarray['error'] = json_encode($errors);
+    }   
+    
+    return json_encode($rarray);
+
+}
+function getRooms(){
+    global $conn;
+    $rarray = array();
+        $result = $conn->query("SELECT size, beds, sea_view FROM rooms");
+        $num_rows = $result->num_rows;
+        $rooms = array();
+        if($num_rows > 0)
+        {
+            // $result2 = $conn->query("SELECT room_name, room_img, room_desc, price, night,(SELECT available FROM availability WHERE room_id=rooms.room_id) as ava FROM rooms");
+            while($row = $result->fetch_assoc()) {
+                $one_room = array();
+                $one_room['size'] = $row['size'];
+                $one_room['beds'] = $row['beds'];
+                $one_room['sea_view'] = $row['sea_view'];
+                array_push($rooms,$one_room);
+            }
+        }
+        $rarray['rooms'] = $rooms;
+        return json_encode($rarray);
+}
+?>
