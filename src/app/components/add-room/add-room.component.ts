@@ -44,6 +44,7 @@ export class AddRoomComponent implements OnInit {
       element.style.display = 'block';
       element.style.background = 'rgb(56, 207, 96)';
       element.innerHTML = 'Room added.';
+      this.addRoomForm.reset();
     }, (error) => {
       const obj = error.error.error;
 

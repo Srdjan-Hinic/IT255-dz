@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,7 @@ export class RegisterComponent implements OnInit {
     email: new FormControl()
   });
 
-  constructor(private _api: ApiService, private _router: Router) { }
+  constructor(private _api: ApiService, private _router: Router, private _auth: AuthService) { }
 
   ngOnInit() {
     if (localStorage.getItem('token')) {
@@ -35,8 +36,8 @@ export class RegisterComponent implements OnInit {
       .set('lastName', this.registerForm.value.lastName)
       .set('email', this.registerForm.value.email);
     this._api.post('registerUser.php', body.toString()).subscribe((data: any) => {
-      console.log(data);
       localStorage.setItem('token', data.token);
+      this._auth.setAuth(true);
       this._router.navigate(['']);
     }, (error) => {
       const obj = error.error.error;

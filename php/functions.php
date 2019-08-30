@@ -202,7 +202,7 @@ function addRoomFunc($size,$beds,$seaView) {
 function getRooms(){
     global $conn;
     $rarray = array();
-        $result = $conn->query("SELECT size, beds, sea_view FROM rooms");
+        $result = $conn->query("SELECT * FROM rooms");
         $num_rows = $result->num_rows;
         $rooms = array();
         if($num_rows > 0)
@@ -210,6 +210,7 @@ function getRooms(){
             // $result2 = $conn->query("SELECT room_name, room_img, room_desc, price, night,(SELECT available FROM availability WHERE room_id=rooms.room_id) as ava FROM rooms");
             while($row = $result->fetch_assoc()) {
                 $one_room = array();
+                $one_room['id'] = $row['id'];
                 $one_room['size'] = $row['size'];
                 $one_room['beds'] = $row['beds'];
                 $one_room['sea_view'] = $row['sea_view'];
@@ -218,5 +219,28 @@ function getRooms(){
         }
         $rarray['rooms'] = $rooms;
         return json_encode($rarray);
+}
+
+function editRoom($data){
+    global $conn;
+    $rarray = array();
+        $stmt = $conn->prepare("UPDATE rooms SET size=?, beds=?, sea_view=? WHERE id=?");
+        $stmt->bind_param("iiii", $data['size'], $data['beds'], $data['sea_view'],$data['id']);
+        if($stmt->execute()){
+            $rarray['success'] = "updated";
+        }else{
+            $rarray['error'] = "Database connection error";
+        }
+    return json_encode($rarray);
+}
+
+function deleteRoom($id){
+    global $conn;
+    $rarray = array();
+        $result = $conn->prepare("DELETE FROM rooms WHERE id=?");
+        $result->bind_param("i",$id);
+        $result->execute();
+        $rarray['success'] = "Deleted successfully"; 
+    return json_encode($rarray);
 }
 ?>

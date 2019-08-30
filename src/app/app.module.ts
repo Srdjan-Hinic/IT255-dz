@@ -16,6 +16,8 @@ import { ReservationsComponent } from './components/reservations/reservations.co
 import { SizePipePipe } from './pipes/size-pipe.pipe';
 import { BedPipePipe } from './pipes/bed-pipe.pipe';
 import { AddRoomComponent } from './components/add-room/add-room.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { AdminGuardService } from './services/admin-guard.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,7 @@ import { AddRoomComponent } from './components/add-room/add-room.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [ApiService,AuthService],
+  providers: [ApiService,AuthService,AuthGuardService, AdminGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
